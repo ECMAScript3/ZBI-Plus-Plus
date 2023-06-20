@@ -1,0 +1,49 @@
+{
+	"name": "zbipp",
+	"displayName": "ZBI++",
+	"description": "Language support for ZBI++ and ZBI",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.78.0"
+	},
+	"categories": [
+		"Programming Languages"
+	],
+	"contributes": {
+		"languages": [
+			{
+				"id": "zbipp",
+				"aliases": [
+					"ZBI++",
+					"zbipp"
+				],
+				"extensions": [
+					".zbp"
+				],
+				"configuration": "./zbipp-lang-config.json"
+			},
+			{
+				"id": "zbi",
+				"aliases": [
+					"ZBI"
+				],
+				"extensions": [
+					".zbi"
+				],
+				"configuration": "./zbi-lang-config.json"
+			}
+		],
+		"grammars": [
+			{
+				"language": "zbipp",
+				"scopeName": "source.zbp",
+				"path": "./syntaxes/zbipp.tmLanguage.json"
+			},
+			{
+				"language": "zbi",
+				"scopeName": "source.zbi",
+				"path": "./syntaxes/zbi.tmLanguage.json"
+			}
+		]
+	}
+}

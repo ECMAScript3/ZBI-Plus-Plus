@@ -1,0 +1,14 @@
+{
+	"name": "zbp-transpiler",
+	"version": "0.0.1",
+	"description": "ZBI++ to ZBI transpiler",
+	"main": "main.mjs",
+	"scripts": {
+		"build": "node main.mjs"
+	},
+	"author": "Shawn Aaron McAnalley Jr",
+	"license": "UNLICENSED",
+	"dependencies": {
+		"yargs": "^17.7.2"
+	}
+}

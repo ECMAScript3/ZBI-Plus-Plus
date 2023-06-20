@@ -1,0 +1,5 @@
+$RET ^ZBPFN2() {
+LET $ARG2 = $ARG2 + CHR$(112)
+LET #RET = #ARG1
+RETURN
+}

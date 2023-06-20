@@ -1,0 +1,5 @@
+$RET ^ZBPFN(#ARG1, $ARG2) {
+LET #TEST = #ARG1 + 1
+$RET ^ZBPFN2()
+RETURN
+}
