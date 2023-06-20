@@ -30,7 +30,7 @@ export class Func extends Code {
 		}
 	}
 	populateVars() {
-		this.body = this.body.replace(/[\$#][\w\d]+/gi, (varName) => {
+		this.body = this.body.replace(/[\$#]\w[\w\d]*/gi, (varName) => {
 			return this.useVar(varName);
 		});
 	}

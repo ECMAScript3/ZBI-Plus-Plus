@@ -23,6 +23,8 @@ export class Code {
 		})
 	}
 	get writable() {
-		return this.body.replaceAll(/\n+/gim, '\n')
+		this.body = this.body.replaceAll(/\n+/gim, '\n');
+		this.body = this.body.replaceAll(/[\t ]+/gim, ' ');
+		this.body = this.body.replaceAll(/^\s+/gim, '');
 	}
 }
