@@ -1,0 +1,20 @@
+AUTONUM
+DECLARE STRING scoped_str$(4)
+DECLARE NUMERIC scoped_num(4)
+DECLARE STRING def_str$(0)
+DECLARE NUMERIC def_num(0)
+LET undefined = TEST
+LET undefined = ARG2$
+GOSUB ZBPFN2
+GOSUB ZBPFN2
+LET TESTING = scoped_str$(3)
+GOTO MAIN
+SUB ZBPFN
+LET scoped_num(2) = scoped_num(1) + 1
+GOSUB ZBPFN2
+LET scoped_str$(1) = scoped_str$(3)
+RETURN
+SUB ZBPFN2
+LET scoped_str$(4) = scoped_str$(4) + CHR$(112)
+LET scoped_num(3) = scoped_num(4)
+RETURN

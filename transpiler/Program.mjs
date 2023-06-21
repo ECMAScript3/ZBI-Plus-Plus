@@ -54,7 +54,7 @@ DECLARE STRING ${this.scopedStrArr}(${this.#scopedStrIndex})
 DECLARE NUMERIC ${this.scopedNumArr}(${this.#scopedNumIndex})
 DECLARE STRING ${this.#defStrArr}(${this.#defStrIndex})
 DECLARE NUMERIC ${this.#defNumArr}(${this.#defNumIndex})
-`
+`.trimStart();
 	}
 	transpile() {
 		for (const stat of [...this.statics.defs, ...this.statics.hoisted]) {

@@ -103,6 +103,10 @@
 				{
 					"name": "variable.parameter.static.zbpp",
 					"match": "[@%][\\w\\d]+"
+				},
+				{
+					"name": "variable.parameter.native.zbpp",
+					"match": "\\w[\\w\\d]*\\$?"
 				}
 			]
 		}
