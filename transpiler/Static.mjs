@@ -9,7 +9,7 @@ export class Stat extends Code {
 	}
 	populateDefs() {
 		this.body = this.body.replace(/[@%][\w\d]+/gi, (defName) => {
-			return this.prog.registerDef(defName);
+			return this.prog.registerDef(defName.toLowerCase());
 		});
 	}
 }

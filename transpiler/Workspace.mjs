@@ -44,6 +44,8 @@ export class Workspace {
 			outFile = await open(this.#outPath, 'w');
 			const wStream = outFile.createWriteStream();
 			await this.#prog.write(wStream);
+		} catch (e) {
+			console.log(e);
 		} finally {
 			await outFile.close();
 		}

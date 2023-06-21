@@ -29,6 +29,7 @@ export class Program {
 			def = `${this.#defNumArr}(${++this.#defNumIndex})`
 		}
 		this.#defs[defName] = def;
+		return this.#defs[defName];
 	}
 	useDef(defName) {
 		if (this.#defs[defName]) return this.#defs[defName];
@@ -49,7 +50,7 @@ export class Program {
 	}
 	get header() {
 		return `
-AUTONUM
+AUTONUM 10,10
 DECLARE STRING ${this.scopedStrArr}(${this.#scopedStrIndex})
 DECLARE NUMERIC ${this.scopedNumArr}(${this.#scopedNumIndex})
 DECLARE STRING ${this.#defStrArr}(${this.#defStrIndex})
@@ -86,7 +87,7 @@ DECLARE NUMERIC ${this.#defNumArr}(${this.#defNumIndex})
 function streamWriter(wStream) {
 	return function wr(data) {
 		return new Promise((resolve) => {
-			if (!wStream.write(data)) {
+			if (!wStream.write(data.replaceAll(/\r/g, '\n').replaceAll(/\n+/g, '\r\n'))) {
 				wStream.once('drain', resolve);
 			} else resolve()
 		})

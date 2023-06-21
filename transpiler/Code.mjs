@@ -10,7 +10,7 @@ export class Code {
 		this.body = this.body.replace(signaturePattern, (...found) => {
 			const groups = found[found.length - 1];
 			const args = groups.args ? groups.args.split(/,\s*/gim) : [];
-			return this.prog.funcs[groups.name].asGoSub(args, groups.ret);
+			return this.prog.funcs[groups.name.toLowerCase()].asGoSub(args, groups.ret);
 		});
 	}
 	byteString() {

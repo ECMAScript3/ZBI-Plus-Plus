@@ -30,7 +30,7 @@ export class Source {
 			this.#def = false;
 			new Func(
 				this.#prog,
-				name,
+				name.toLowerCase(),
 				args ? args.split(/,\s*/gim) : [],
 				ret,
 				body

@@ -23,10 +23,10 @@ export class Func extends Code {
 		return this.scope[varName];
 	}
 	useVar(varName) {
-		if (this.scope[varName]) {
-			return this.scope[varName];
+		if (this.scope[varName.toLowerCase()]) {
+			return this.scope[varName.toLowerCase()];
 		} else {
-			return this.addVar(varName);
+			return this.addVar(varName.toLowerCase());
 		}
 	}
 	populateVars() {
@@ -53,7 +53,7 @@ export class Func extends Code {
 	}
 	populateDefs() {
 		this.body = this.body.replace(/[@%][\w\d]+/gi, (defName) => {
-			return this.prog.useDef(defName);
+			return this.prog.useDef(defName.toLowerCase());
 		});
 	}
 
