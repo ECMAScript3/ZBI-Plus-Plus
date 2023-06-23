@@ -6,7 +6,7 @@ export class Code {
 		this.body = body;
 	}
 	populateFuncs() {
-		const signaturePattern = /^(?:(?<ret>[\$#]?[\w\d]+\$?)[ \t])?\^(?<name>[\w\d]+)\((?<args>.+)?\)/gim
+		const signaturePattern = /^\s+(?:(?<ret>[\$#]?[\w\d]+)[ \t])?\^(?<name>[\w\d]+)\((?<args>[\s\S]*?)\)/gim;
 		this.body = this.body.replace(signaturePattern, (...found) => {
 			const groups = found[found.length - 1];
 			const args = groups.args ? groups.args.split(/,\s*/gim) : [];
@@ -14,12 +14,19 @@ export class Code {
 		});
 	}
 	byteString() {
-		this.body = this.body.replace(/<(?:[\da-f]{2}\s?)+>/gi, (match) => {
-			const str = '';
-			for (a of match.match(/[\da-f]{2}/gi)) {
-				`CHR$(${parseInt(a, 16)}) & `
+		this.body = this.body.replace(/<(?:[\da-f]{2}(\s+)?)+>/gi, (match) => {
+			let strvar = `${this.prog.defStrArr}(${++this.prog.defStrIndex})`;
+			let str = '';
+			let i = 0;
+			for (const a of match.match(/[\da-f]{2}/gi)) {
+				if (i++ >= 7) {
+					i = 0;
+					str += `\r\nlet ${strvar} = ${strvar}`;
+				}
+				str += ` & CHR$(${parseInt(a, 16)})`
 			}
-			return str.substring(0, str.length - 3);
+			this.prog.byteStrDefs += `let ${strvar} = ${str.substring(3)}\r\n`;
+			return strvar;
 		})
 	}
 	get writable() {

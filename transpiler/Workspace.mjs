@@ -4,7 +4,6 @@ import { Source } from './Source.mjs';
 import path from 'node:path';
 export class Workspace {
 	#watch = false;
-	#def = [];
 	#sources = [];
 	#prog;
 	#outPath;
@@ -50,5 +49,15 @@ export class Workspace {
 			await outFile.close();
 		}
 	}
-
+	async watch() {
+		console.log('Building:')
+		await this.run();
+		console.log(`Watching ${this.#inPath}`);
+		const watcher = watch(this.#inPath, {persistent: true, recursive: true});
+		for await (const event of watcher) {
+			this.#prog = new Program();
+			this.#sources = [];
+			await this.run();
+		}
+	}
 }

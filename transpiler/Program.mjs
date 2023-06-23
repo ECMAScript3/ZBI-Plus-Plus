@@ -6,26 +6,27 @@ export class Program {
 
 	#scopedStrIndex = 0;
 	#scopedNumIndex = 0;
-	#defStrIndex = 0;
+	defStrIndex = 0;
 	#defNumIndex = 0;
 	scopedStrArr = 'scoped_str$';
 	scopedNumArr = 'scoped_num';
-	#defStrArr = 'def_str$';
+	defStrArr = 'def_str$';
 	#defNumArr = 'def_num';
 	#defs = {};
 	statics = {
 		defs: [],
 		hoisted: []
 	}
+	byteStrDefs = '';
 	funcs = {};
 
 
 	registerDef(defName) {
 		if (this.#defs[defName]) return this.#defs[defName];
 		let def;
-		if (defName.charAt(0) == '@') {
-			def = `${this.#defStrArr}(${++this.#defStrIndex})`
-		} else if (defName.charAt(0) == '%') {
+		if (defName.charAt(0) == '%') {
+			def = `${this.defStrArr}(${++this.defStrIndex})`
+		} else if (defName.charAt(0) == '@') {
 			def = `${this.#defNumArr}(${++this.#defNumIndex})`
 		}
 		this.#defs[defName] = def;
@@ -53,19 +54,20 @@ export class Program {
 AUTONUM 10,10
 DECLARE STRING ${this.scopedStrArr}(${this.#scopedStrIndex})
 DECLARE NUMERIC ${this.scopedNumArr}(${this.#scopedNumIndex})
-DECLARE STRING ${this.#defStrArr}(${this.#defStrIndex})
+DECLARE STRING ${this.defStrArr}(${this.defStrIndex})
 DECLARE NUMERIC ${this.#defNumArr}(${this.#defNumIndex})
+${this.byteStrDefs}
 `.trimStart();
 	}
 	transpile() {
 		for (const stat of [...this.statics.defs, ...this.statics.hoisted]) {
-			stat.populateDefs();
 			stat.populateFuncs();
+			stat.populateDefs();
 			stat.byteString();
 		}
 		for (const func in this.funcs) {
-			this.funcs[func].populateDefs();
 			this.funcs[func].populateFuncs();
+			this.funcs[func].populateDefs();
 			this.funcs[func].populateVars();
 			this.funcs[func].byteString();
 		}
@@ -77,7 +79,7 @@ DECLARE NUMERIC ${this.#defNumArr}(${this.#defNumIndex})
 		for (const stat of [...this.statics.defs, ...this.statics.hoisted]) {
 			await wr(stat.writable)
 		}
-		await wr('GOTO MAIN\n');
+		await wr('GOTO MAIN\r\n');
 		for (const func in this.funcs) {
 			await wr(this.funcs[func].writable);
 		}

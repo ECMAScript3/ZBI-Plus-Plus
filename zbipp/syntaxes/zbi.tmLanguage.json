@@ -25,19 +25,19 @@
 		"keywords": {
 			"patterns": [
 				{
-					"name": "keyword.control.zbipp",
+					"name": "keyword.control.zbi",
 					"match": "(?i)\\b(IF|ELSE|END|DO|WHILE|UNTIL|LOOP|FOR|NEXT|RETURN|GOTO|GOSUB|SUB|EXIT|END|SLEEP)\\b"
 				},
 				{
-					"name": "storage.type.array.zbipp",
+					"name": "storage.type.array.zbi",
 					"match": "(?i)\\b(STRING|NUMERIC)\\b"
 				},
 				{
-					"name": "keyword.operator.zbipp",
-					"match": "\\b(=|\\:|&|\\+|\\-|ON|\\*|/|\\^|<|>|<=|>=|NOT|AND|OR)\\b"
+					"name": "keyword.operator.zbi",
+					"match": "(?i)(=|\\:|&|\\+|\\-|\\*|/|\\^|<|>|<=|>=)|\\b(ON|NOT|AND|OR)\\b"
 				},
 				{
-					"name": "keyword.operator.command.zbipp",
+					"name": "keyword.operator.command.zbi",
 					"match": "(?i)\\b(LET|OPEN|NAME|CLOSE|PRINT|INPUT|INBYTE|OUTBYTE|DECLARE|AUTONUM|STORE|LOAD|DIR|DELETE|ISERROR|ISWARNING|SETERR|CLRERR|REDIM)\\b"
 				}
 			]
@@ -45,18 +45,18 @@
 		"functions": {
 			"patterns": [
 				{
-					"name": "entity.name.function.lang.zbpp",
-					"match": "(?i)\\b(DATAREADY|SERVERSOCKET|CLIENTSOCKET|ACCEPT|READ|WRITE|SEARCHTO\\$|CSVSTORE|CSVLOAD|TXTSTORE|TXTLOAD|REGISTEREVENT|UNREGISTEREVENT|HANDLEEVENT|TRIGGEREVENT|AUXPORT_STEALPIN|AUXPORT_SETPIN|AUXPORT_GETPIN|AUXPORT_RELEASEPIN|LCASE\\$|CHR\\$|LTRIM\\$|REPEAT\\$|RTRIM\\$|SPLIT|SPLITCOUNT|UCASE\\$|EXTRACT\\$|ORD|POS|LEN|STR\\$|MAX|MIN|MOD|VAL|INTTOHEX\\$|HEXTOINT|INSERTROW|DELROW|ROWSIZE|COLUMNSIZE|FIND|SETVAR|GETVAR\\$)\\b"
+					"name": "entity.name.function.lang.zbi",
+					"match": "(?i)\\b(DATAREADY|SERVERSOCKET|CLIENTSOCKET|ACCEPT|READ|WRITE|SEARCHTO\\$|CSVSTORE|CSVLOAD|TXTSTORE|TXTLOAD|REGISTEREVENT|UNREGISTEREVENT|HANDLEEVENT|TRIGGEREVENT|AUXPORT_STEALPIN|AUXPORT_SETPIN|AUXPORT_GETPIN|AUXPORT_RELEASEPIN|LCASE\\$|CHR\\$|LTRIM\\$|REPEAT\\$|RTRIM\\$|SPLIT|SPLITCOUNT|UCASE\\$|EXTRACT\\$|ORD|POS|LEN|STR\\$|MAX|MIN|MOD|VAL|INTTOHEX\\$|HEXTOINT|INSERTROW|DELROW|ROWSIZE|COLUMNSIZE|FIND|SETVAR|GETVAR\\$)"
 				}
 			]
 		},
 		"strings": {
-			"name": "string.quoted.double.zbipp",
+			"name": "string.quoted.double.zbi",
 			"begin": "\"",
 			"end": "\"",
 			"patterns": [
 				{
-					"name": "constant.character.escape.zbipp",
+					"name": "constant.character.escape.zbi",
 					"match": "\\\\."
 				}
 			]
@@ -64,11 +64,11 @@
 		"comments": {
 			"patterns": [
 				{
-					"name": "comment.line.exclaim.zbpp",
+					"name": "comment.line.exclaim.zbi",
 					"match": "!"
 				},
 				{
-					"name": "comment.line.rem.zbpp",
+					"name": "comment.line.rem.zbi",
 					"match": "(?i)REM\\b"
 				}
 			]
@@ -76,11 +76,11 @@
 		"constants": {
 			"patterns": [
 				{
-					"name": "constant.numeric.integer.zbpp",
+					"name": "constant.numeric.integer.zbi",
 					"match": "\\W\\d+\\W"
 				},
 				{
-					"name": "constant.language.zbpp",
+					"name": "constant.language.zbi",
 					"match": "(?i)\\b(ALL|ERROR|MAXNUM|DATE\\$|TIME\\$|DATE|TIME)\\b"
 				}
 			]
@@ -88,7 +88,7 @@
 		"variables": {
 			"patterns": [
 				{
-					"name": "variable.parameter.native.zbpp",
+					"name": "variable.parameter.native.zbi",
 					"match": "\\w[\\w\\d]*\\$?"
 				}
 			]

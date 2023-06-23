@@ -12,7 +12,7 @@ export class Func extends Code {
 			this.inVars.push(this.addVar(v));
 		}
 		this.prog.registerFunction(this);
-		this.body = `${this.asSub}\n${this.body.trim()}\n`;
+		this.body = `${this.asSub}\r\n${this.body.trim()}\r\nRETURN\r\n`;
 	}
 	addVar(varName) {
 		if (varName.charAt(0) == '#') {
@@ -30,7 +30,7 @@ export class Func extends Code {
 		}
 	}
 	populateVars() {
-		this.body = this.body.replace(/[\$#]\w[\w\d]*/gi, (varName) => {
+		this.body = this.body.replace(/[\$#][\w\d]+\b/gi, (varName) => {
 			return this.useVar(varName);
 		});
 	}
@@ -52,7 +52,7 @@ export class Func extends Code {
 		return `SUB ${this.name}`
 	}
 	populateDefs() {
-		this.body = this.body.replace(/[@%][\w\d]+/gi, (defName) => {
+		this.body = this.body.replace(/[@%][\w\d]+\b/gi, (defName) => {
 			return this.prog.useDef(defName.toLowerCase());
 		});
 	}

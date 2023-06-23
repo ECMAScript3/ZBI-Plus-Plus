@@ -20,18 +20,6 @@ export const argv = yargs(hideBin(process.argv))
 		normalize: true,
 		desc: 'Folder containing files to be processed.'
 	})
-	.option('index', {
-		alias: ['main', 'm'],
-		string: true,
-		normalize: true,
-		desc: 'File to be run at program start.'
-	})
-	.option('def', {
-		alias: 'd',
-		array: true,
-		normalize: true,
-		desc: 'File to setup global constant definitions at initialization.'
-	})
 	.option('w', {
 		alias: 'watch',
 		boolean: true,
@@ -39,4 +27,8 @@ export const argv = yargs(hideBin(process.argv))
 		desc: 'Whether file updates should automatically trigger another transpile.'
 	})
 	.argv;
-await new Workspace(argv).run();
+if (argv.w) {
+	await new Workspace(argv).watch();
+} else {
+	await new Workspace(argv).run();
+}
