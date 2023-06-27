@@ -23,7 +23,7 @@ export class Source {
 		return;
 	}
 	extractFuncs() {
-		const signaturePattern = /^(?:(?<ret>[\$#]?[\w\d]+)[ \t])?\^(?<name>[\w\d]+)\((?<args>[\s\S]*?)\)\s*{(?<body>[\s\S]*?)}/gim;
+		const signaturePattern = /^(?:(?<ret>[\$~]?[\w\d]+)[ \t])?\^(?<name>[\w\d]+)\((?<args>[\s\S]*?)\)\s*{(?<body>[\s\S]*?)}/gim;
 		const fnSigs = this.#contents.matchAll(signaturePattern);
 		for (const fnSig of fnSigs) {
 			const { groups: { ret, name, args, body } } = fnSig;
@@ -38,7 +38,7 @@ export class Source {
 		}
 	}
 	extractStatics() {
-		const signaturePattern = /^(?:(?<ret>[\$#]?[\w\d]+)[ \t])?\^(?<name>[\w\d]+)\((?<args>[\s\S]*?)\)\s*{(?<body>[\s\S]*?)}/gim;
+		const signaturePattern = /^(?:(?<ret>[\$~]?[\w\d]+)[ \t])?\^(?<name>[\w\d]+)\((?<args>[\s\S]*?)\)\s*{(?<body>[\s\S]*?)}/gim;
 		new Stat(this.#prog, `${this.#contents.replace(signaturePattern, '')}\r\n`, this.#def);
 	}
 }

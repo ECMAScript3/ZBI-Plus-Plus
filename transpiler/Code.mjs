@@ -6,7 +6,7 @@ export class Code {
 		this.body = body;
 	}
 	populateFuncs() {
-		const signaturePattern = /^\s+(?:(?<ret>[\$#]?[\w\d]+)[ \t])?\^(?<name>[\w\d]+)\((?<args>[\s\S]*?)\)/gim;
+		const signaturePattern = /^\s+(?:(?<ret>[\$~]?[\w\d]+)[ \t])?\^(?<name>[\w\d]+)\((?<args>[\s\S]*?)\)/gim;
 		this.body = this.body.replace(signaturePattern, (...found) => {
 			const groups = found[found.length - 1];
 			const args = groups.args ? groups.args.split(/,\s*/gim) : [];

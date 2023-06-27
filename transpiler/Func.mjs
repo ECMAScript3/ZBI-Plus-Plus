@@ -15,7 +15,7 @@ export class Func extends Code {
 		this.body = `${this.asSub}\r\n${this.body.trim()}\r\nRETURN\r\n`;
 	}
 	addVar(varName) {
-		if (varName.charAt(0) == '#') {
+		if (varName.charAt(0) == '~') {
 			this.scope[varName] = `${this.prog.scopedNumArr}(${this.prog.registerScopedNum()})`
 		} else if (varName.charAt(0) == '$') {
 			this.scope[varName] = `${this.prog.scopedStrArr}(${this.prog.registerScopedStr()})`
@@ -30,7 +30,7 @@ export class Func extends Code {
 		}
 	}
 	populateVars() {
-		this.body = this.body.replace(/[\$#][\w\d]+\b/gi, (varName) => {
+		this.body = this.body.replace(/[\$~][a-z]\w*\b/gi, (varName) => {
 			return this.useVar(varName);
 		});
 	}
@@ -52,7 +52,7 @@ export class Func extends Code {
 		return `SUB ${this.name}`
 	}
 	populateDefs() {
-		this.body = this.body.replace(/[@%][\w\d]+\b/gi, (defName) => {
+		this.body = this.body.replace(/[@%][a-z]\w*\b/gi, (defName) => {
 			return this.prog.useDef(defName.toLowerCase());
 		});
 	}
