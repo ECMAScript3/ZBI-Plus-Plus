@@ -13,6 +13,7 @@ export class Program {
 	defStrArr = 'def_str$';
 	#defNumArr = 'def_num';
 	#defs = {};
+	i = 0;
 	statics = {
 		defs: [],
 		hoisted: []
@@ -51,7 +52,6 @@ export class Program {
 	}
 	get header() {
 		return `
-AUTONUM 10,10
 DECLARE STRING ${this.scopedStrArr}(${this.#scopedStrIndex})
 DECLARE NUMERIC ${this.scopedNumArr}(${this.#scopedNumIndex})
 DECLARE STRING ${this.defStrArr}(${this.defStrIndex})
@@ -74,24 +74,25 @@ ${this.byteStrDefs}
 	}
 
 	async write(wStream) {
-		const wr = streamWriter(wStream);
-		await wr(this.header);
+		let out = this.header.replaceAll(/\r/g, '\n').replaceAll(/\n+/g, '\r\n');
+		out = out.replace(/^(?=.+$)/gim, (defName) => {
+			return `${++this.i * 10} `;
+		});
+		await wStream.write(out)
 		for (const stat of [...this.statics.defs, ...this.statics.hoisted]) {
-			await wr(stat.writable)
+			out = stat.writable.replaceAll(/\r/g, '\n').replaceAll(/\n+/g, '\r\n');
+			out = out.replace(/^(?=.+$)/gim, (defName) => {
+				return `${++this.i * 10} `;
+			});
+			await wStream.write(out)
 		}
-		await wr('GOTO MAIN\r\n');
+		await wStream.write(`${++this.i} GOTO main\r\n`)
 		for (const func in this.funcs) {
-			await wr(this.funcs[func].writable);
+			out = this.funcs[func].writable.replaceAll(/\r/g, '\n').replaceAll(/\n+/g, '\r\n');
+			out = out.replace(/^(?=.+$)/gim, (defName) => {
+					return `${++this.i * 10} `;
+			});
+			await wStream.write(out)
 		}
-	}
-}
-
-function streamWriter(wStream) {
-	return function wr(data) {
-		return new Promise((resolve) => {
-			if (!wStream.write(data.replaceAll(/\r/g, '\n').replaceAll(/\n+/g, '\r\n'))) {
-				wStream.once('drain', resolve);
-			} else resolve()
-		})
 	}
 }
