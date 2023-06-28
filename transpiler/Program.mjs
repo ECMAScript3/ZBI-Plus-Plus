@@ -78,7 +78,7 @@ ${this.byteStrDefs}
 		out = out.replace(/^(?=.+$)/gim, (defName) => {
 			return `${++this.i * 10} `;
 		});
-		await wStream.write(out)
+		await wStream.write(`\r\n${out}`)
 		for (const stat of [...this.statics.defs, ...this.statics.hoisted]) {
 			out = stat.writable.replaceAll(/\r/g, '\n').replaceAll(/\n+/g, '\r\n');
 			out = out.replace(/^(?=.+$)/gim, (defName) => {
@@ -86,7 +86,7 @@ ${this.byteStrDefs}
 			});
 			await wStream.write(out)
 		}
-		await wStream.write(`${++this.i} GOTO main\r\n`)
+		await wStream.write(`${++this.i * 10} GOTO main\r\n`)
 		for (const func in this.funcs) {
 			out = this.funcs[func].writable.replaceAll(/\r/g, '\n').replaceAll(/\n+/g, '\r\n');
 			out = out.replace(/^(?=.+$)/gim, (defName) => {
