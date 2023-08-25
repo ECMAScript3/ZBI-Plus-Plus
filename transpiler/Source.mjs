@@ -20,7 +20,14 @@ export class Source {
 	}
 	async load() {
 		this.#contents = await readFile(this.#path, { encoding: 'utf8' });
+		this.preprocess();
 		return;
+	}
+	preprocess() {
+		const lineCommentPattern = /\/\/[\s\S]*?$/gim
+		const blockCommentPattern = /\/\*[\s\S]*?\*\//gim
+		this.#contents = this.#contents.replaceAll(lineCommentPattern, '\n');
+		this.#contents = this.#contents.replaceAll(blockCommentPattern, '');
 	}
 	extractFuncs() {
 		const signaturePattern = /^(?:(?<ret>[\$~]?[\w\d]+)[ \t])?\^(?<name>[\w\d]+)\((?<args>[\s\S]*?)\)\s*{(?<body>[\s\S]*?)}/gim;

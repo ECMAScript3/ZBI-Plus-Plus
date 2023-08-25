@@ -84,6 +84,16 @@
 					"match": "!"
 				},
 				{
+					"name": "comment.line.slash.zbpp",
+					"begin": "\/\/",
+					"end": "$"
+				},
+				{
+					"name": "comment.block.zbpp",
+					"begin": "\\/\\*",
+					"end": "\\*\\/"
+				},
+				{
 					"name": "comment.line.rem.zbpp",
 					"match": "(?i)REM\\b"
 				}
