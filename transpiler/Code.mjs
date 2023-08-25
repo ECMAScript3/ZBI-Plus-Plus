@@ -12,6 +12,11 @@ export class Code {
 			const args = groups.args ? groups.args.split(/,\s*/gim) : [];
 			return this.prog.funcs[groups.name.toLowerCase()].asGoSub(args, groups.ret);
 		});
+		const errSignaturePattern = /^\s+\?(?<name>[\w\d]+)/gim;
+		this.body = this.body.replace(errSignaturePattern, (...found) => {
+			const groups = found[found.length - 1];
+			return this.prog.funcs[groups.name.toLowerCase()].asOnError;
+		});
 	}
 	byteString() {
 		this.body = this.body.replace(/<(?:[\da-f]{2}(\s+)?)+>/gi, (match) => {

@@ -48,6 +48,9 @@ export class Func extends Code {
 		}
 		return callStr.trimEnd();
 	}
+	get asOnError() {
+		return `ON ERROR GOSUB ${this.name}`
+	}
 	get asSub() {
 		return `SUB ${this.name}`
 	}

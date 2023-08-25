@@ -3,6 +3,9 @@
 	"name": "ZBI++",
 	"patterns": [
 		{
+			"include": "#comments"
+		},
+		{
 			"include": "#keywords"
 		},
 		{
@@ -12,16 +15,13 @@
 			"include": "#strings"
 		},
 		{
-			"include": "#comments"
-		},
-		{
 			"include": "#constants"
 		},
 		{
-			"include": "#variables"
+			"include": "#operators"
 		},
 		{
-			"include": "#operators"
+			"include": "#variables"
 		}
 	],
 	"repository": {
@@ -29,7 +29,7 @@
 			"patterns": [
 				{
 					"name": "keyword.control.zbipp",
-					"match": "(?i)\\b(IF|THEN|ELSE|END|DO|WHILE|UNTIL|LOOP|FOR|NEXT|RETURN|GOTO|GOSUB|SUB|EXIT|END|SLEEP)\\b"
+					"match": "(?i)\\b(IF|THEN|ELSE|END|DO|WHILE|UNTIL|LOOP|FOR|NEXT|RETURN|GOTO|GOSUB|SUB|EXIT|END|SLEEP|TO|STEP)\\b"
 				},
 				{
 					"name": "storage.type.array.zbipp",
@@ -59,6 +59,10 @@
 				{
 					"name": "entity.name.function.user.zbpp",
 					"match": "\\^[\\w\\d]+"
+				},
+				{
+					"name": "entity.name.tag.error.zbpp",
+					"match": "\\?[\\w\\d]+"
 				}
 			]
 		},
@@ -89,8 +93,7 @@
 			"patterns": [
 				{
 					"name": "constant.numeric.buffer.zbpp",
-					"begin": "<",
-					"end": ">"
+					"match": "(?i)<(\\s*[\\da-f]{2}\\s*)+>"
 				},
 				{
 					"name": "constant.numeric.integer.zbpp",
@@ -106,7 +109,7 @@
 			"patterns": [
 				{
 					"name": "variable.parameter.scoped.zbpp",
-					"match": "[\\$#][\\w\\d]+"
+					"match": "[\\$~][\\w\\d]+"
 				},
 				{
 					"name": "variable.parameter.static.zbpp",
